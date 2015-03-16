@@ -51,6 +51,10 @@ public class ServerThread extends Thread
 		
 		String[] msg = line.split( " ", 3 );
 		//String user = msg[1];
+		
+		if ( msg[1].equals(client.getUsername()) ) //Client tries to PM himself
+			return;
+		
 		line = msg[0] + " " + msg[2];
 		
 		for ( Server s : Server.getClientList() )

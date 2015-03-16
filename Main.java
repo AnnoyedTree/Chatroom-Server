@@ -11,8 +11,8 @@ public class Main
 	
 	public static void main( String[] args ) throws IOException
 	{
-		listener = new ServerSocket( 9090 );
-		System.out.println( "Chatroom Server started on port: 9090" );
+		listener = new ServerSocket( 9020 );
+		System.out.println( "Chatroom Server started on port: 9020" );
 		
 		while ( listener.isBound() )
 		{

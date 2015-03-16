@@ -65,7 +65,7 @@ public class Server
 	{
 		try
 		{
-			broadcast( getUserList() );
+			broadcast( userList );
 		} catch ( IOException e ) {
 			//do things
 		}
@@ -74,11 +74,6 @@ public class Server
 	public static ArrayList<Server> getClientList()
 	{
 		return clientList;
-	}
-	
-	public static ArrayList<String> getUserList()
-	{
-		return userList;
 	}
 	
 	public static void broadcast( Object object ) throws IOException
