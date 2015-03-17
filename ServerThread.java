@@ -47,8 +47,6 @@ public class ServerThread extends Thread
 	
 	public void handlePrivateMessage( String line ) throws IOException
 	{
-		System.out.println( line );
-		
 		String[] msg = line.split( " ", 3 );
 		//String user = msg[1];
 		
@@ -56,13 +54,12 @@ public class ServerThread extends Thread
 			return;
 		
 		line = msg[0] + " " + msg[2];
-		
 		for ( Server s : Server.getClientList() )
 		{
 			if ( s.getUsername().equals(msg[1]) )
 			{
-				s.getThread().sendMessage( "(PM) " + line );
-				sendMessage( "(PM to " + msg[1] + ") " + line );
+				s.getThread().sendMessage( "-" + line ); //
+				//sendMessage( "-" + line );
 				break;
 			}
 		}
