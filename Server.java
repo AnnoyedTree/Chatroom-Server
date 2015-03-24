@@ -23,16 +23,12 @@ public class Server
 		socket = s;
 		ipaddress = s.getLocalAddress().getHostAddress();
 		
-		//We create a new thread to allow for multi-threading on the server
-		//This is create a new Input/Output for the client to handle through the server
+		//Create a new thread to handle input and output through the connection
 		thread = new ServerThread( this );
 		thread.start();
 		
-		//Add the client to the list of Connected Clients
+		//Add the client to the list of Connected Clients (Server only)
 		Server.addClient( this );
-		
-		//Inform the server a client connected
-		//System.out.println( getUsername() + " disconnected from " + getIPAddress() );
 	}
 	
 	//Connection
@@ -41,14 +37,13 @@ public class Server
 		return socket;
 	}
 	
-	//This will get the thread of the user
-	//This is needed since we are handling Input/Output on the thread
+	//Thread the client is running on
 	public ServerThread getThread()
 	{
 		return thread;
 	}
 	
-	//Add a client to the connections list
+	//Add a client to the connection list
 	public static void addClient( Server c )
 	{
 		clientList.add( c );

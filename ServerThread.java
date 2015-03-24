@@ -17,29 +17,27 @@ public class ServerThread extends Thread
 	//Constructor
 	public ServerThread( Server c ) throws IOException
 	{
-		//This thread belongs to a client
+		//The client running this thread
 		client = c;
 		
-		//Create our new Input/Output stream on the server to receive & broadcast messages
+		//Add an output stream from the connection (to send messages)
 		out = new ObjectOutputStream( c.getSocket().getOutputStream() );
+		//Add an input stream from the connection (to receive messages)
 		in = new ObjectInputStream( c.getSocket().getInputStream() );
 	}
 	
-	//Sends a message through the current thread.
-	//Will send a message back to the client
+	//Send a message through the thread
 	public void sendMessage( Object object ) throws IOException
 	{
 		//Reset the output stream to send ArrayLists
-		//This is very much needed sending an ArrayList
 		if ( object instanceof ArrayList )
 			out.reset();
 		
 		out.flush();
-		out.writeObject( object ); //Write object back to the client
+		out.writeObject( object ); //Write message to the client
 	}
 	
-	//Disconnect handle by the server
-	//Server-side handling of a client requesting a connection abort
+	//Disconnect the client when the client is requesting a connection abort
 	public void disconnect() throws IOException
 	{
 		//Close our input/output streams
@@ -95,14 +93,12 @@ public class ServerThread extends Thread
 			Object object;
 			int disconnected;
 			
-			//Keep our thread 'thinking'
-			//We want it to keep looping through messages until the client decides to disconnect
+			//Keep looping through messages until the client decides to disconnect
 			while ( true )
 			{
-				//We recieved a message from the client requesting him to disconnect
+				//Recieved a message from the client requesting him to disconnect
 				if ( (disconnected = in.read()) == 1 )
 				{
-					//So we disconnect the user and halt the "RUN" method
 					disconnect();
 					return;
 				}
